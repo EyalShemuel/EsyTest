@@ -21,11 +21,11 @@ var deleteArrDuplicates = require("delete-arr-duplicates");
 app.use(bp.json());
 app.use(bp.urlencoded({
   extended: true
-})); // app.use(express.static(path.join(__dirname, "./", "client", "build","index.html")));
-
+}));
+app.use(express["static"](path.join(__dirname, ".", "/client", "build")));
 app.get("/", function (req, res) {
   // console.log("path: ",(path.join(__dirname, "./client", "build")));
-  res.sendFile(path.join(__dirname, "./client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "./client", "build"));
 }); // 
 
 app.post("/getTestResults", function _callee(req, res) {
