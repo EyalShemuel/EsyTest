@@ -3,8 +3,7 @@ const app = express();
 const path = require('path')
 const pa11y = require("pa11y");
 const bp = require("body-parser");
-const { getLinksSecondTime } = require("./getLinksSecondTime");
-const { getPageLinks } = require("./getLinksSecondTime");
+const { getLinksSecondTime ,getPageLinks} = require("./getLinksSecondTime");
 const extractDomain = require("@tech_userreport.com/extractdomain");
 const deleteArrDuplicates = require("delete-arr-duplicates");
 

@@ -11,10 +11,8 @@ var pa11y = require("pa11y");
 var bp = require("body-parser");
 
 var _require = require("./getLinksSecondTime"),
-    getLinksSecondTime = _require.getLinksSecondTime;
-
-var _require2 = require("./getLinksSecondTime"),
-    getPageLinks = _require2.getPageLinks;
+    getLinksSecondTime = _require.getLinksSecondTime,
+    getPageLinks = _require.getPageLinks;
 
 var extractDomain = require("@tech_userreport.com/extractdomain");
 
