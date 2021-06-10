@@ -24,7 +24,6 @@ app.use(bp.urlencoded({
 }));
 app.use(express["static"](path.join(__dirname, ".", "/client", "build")));
 app.get("/", function (req, res) {
-  // console.log("path: ",(path.join(__dirname, "./client", "build")));
   res.sendFile(path.join(__dirname, "./client", "build"));
 }); // 
 
@@ -133,34 +132,35 @@ var pa11yCall = function pa11yCall(theUrl) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
+          console.log("calling pa11y....");
 
           if (!(theUrl === "")) {
-            _context3.next = 3;
+            _context3.next = 4;
             break;
           }
 
           throw new Error("empty url");
 
-        case 3:
-          _context3.next = 5;
+        case 4:
+          _context3.next = 6;
           return regeneratorRuntime.awrap(pa11y(theUrl).then(function (results) {
             return results;
           }));
 
-        case 5:
+        case 6:
           return _context3.abrupt("return", _context3.sent);
 
-        case 8:
-          _context3.prev = 8;
+        case 9:
+          _context3.prev = 9;
           _context3.t0 = _context3["catch"](0);
           console.log(_context3.t0);
 
-        case 11:
+        case 12:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[0, 8]]);
+  }, null, null, [[0, 9]]);
 };
 
 var changeResult = function changeResult(testResult) {

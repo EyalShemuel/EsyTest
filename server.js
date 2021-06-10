@@ -12,8 +12,7 @@ app.use(bp.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, ".", "/client", "build")));
 
-app.get("/", (req, res) => {
-  // console.log("path: ",(path.join(__dirname, "./client", "build")));
+app.get("/", (req, res) => { 
   res.sendFile(path.join(__dirname, "./client", "build"));
 });
 // 
@@ -82,6 +81,7 @@ const callGetAllSitLinks = async (theUrl) => {
 
 const pa11yCall = async (theUrl) => {
   try {
+    console.log("calling pa11y....")
     if (theUrl === "") throw new Error("empty url");
     return await pa11y(theUrl).then((results) => {
       return results;
