@@ -14,7 +14,7 @@ app.use(bp.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   // console.log("path: ",(path.join(__dirname, "./client", "build")));
-  res.sendFile(path.join(__dirname, "./client", "build"));
+  res.sendFile(path.join(__dirname, "./client", "build","index.html"));
 });
 // 
 app.post("/getTestResults", async (req, res) => {

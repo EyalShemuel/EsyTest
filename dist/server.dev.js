@@ -25,7 +25,7 @@ app.use(bp.urlencoded({
 
 app.get("/", function (req, res) {
   // console.log("path: ",(path.join(__dirname, "./client", "build")));
-  res.sendFile(path.join(__dirname, "./client", "build"));
+  res.sendFile(path.join(__dirname, "./client", "build", "index.html"));
 }); // 
 
 app.post("/getTestResults", function _callee(req, res) {
