@@ -14,8 +14,8 @@ app.use(bp.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, "../", "client", "build")));
 
 app.get("/", (req, res) => {
-  console.log("path: ",(path.join(__dirname)));
-  res.sendFile(path.join(__dirname, "../client", "build"));
+  console.log("path: ",(path.join(__dirname, "./client", "build")));
+  res.sendFile(path.join(__dirname, "./client", "build"));
 });
 // 
 app.post("/getTestResults", async (req, res) => {
@@ -37,7 +37,7 @@ app.post("/getTestResults", async (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client", "build"));
+  res.sendFile(path.join(__dirname, "./client", "build"));
 });
 
 const callGetAllSitLinks = async (theUrl) => {
