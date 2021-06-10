@@ -11,7 +11,7 @@ const deleteArrDuplicates = require("delete-arr-duplicates");
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, "../", "client", "build","index.html")));
+app.use(express.static(path.join(__dirname, "./", "client", "build","index.html")));
 
 app.get("/", (req, res) => {
   console.log("path: ",(path.join(__dirname, "./client", "build")));
