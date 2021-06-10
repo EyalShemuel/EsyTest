@@ -23,11 +23,11 @@ var deleteArrDuplicates = require("delete-arr-duplicates");
 app.use(bp.json());
 app.use(bp.urlencoded({
   extended: true
-})); // app.use(express.static(path.join(__dirname, "../", "client", "build")));
+})); // app.use(express.static(path.join(__dirname, "./", "client", "build","index.html")));
 
 app.get("/", function (req, res) {
-  console.log("path: ", path.join(__dirname));
-  res.sendFile(path.join(__dirname, "../client", "build"));
+  // console.log("path: ",(path.join(__dirname, "./client", "build")));
+  res.sendFile(path.join(__dirname, "./client", "build", "index.html"));
 }); // 
 
 app.post("/getTestResults", function _callee(req, res) {
@@ -73,7 +73,7 @@ app.post("/getTestResults", function _callee(req, res) {
   }, null, null, [[0, 14]]);
 });
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "../client", "build"));
+  res.sendFile(path.join(__dirname, "./client", "build"));
 });
 
 var callGetAllSitLinks = function callGetAllSitLinks(theUrl) {
