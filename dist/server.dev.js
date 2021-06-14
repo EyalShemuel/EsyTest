@@ -4,7 +4,7 @@ var express = require("express");
 
 var app = express();
 
-var path = require('path');
+var path = require("path");
 
 var pa11y = require("pa11y");
 
@@ -25,7 +25,7 @@ app.use(bp.urlencoded({
 app.use(express["static"](path.join(__dirname, ".", "/client", "build")));
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./client", "build"));
-}); // 
+}); //
 
 app.post("/getTestResults", function _callee(req, res) {
   var theUrl, testResult, Results;
@@ -44,7 +44,7 @@ app.post("/getTestResults", function _callee(req, res) {
           throw Error("did`t enter url");
 
         case 6:
-          console.log('entered');
+          console.log("entered");
           _context.next = 9;
           return regeneratorRuntime.awrap(pa11yCall(theUrl));
 
@@ -143,7 +143,11 @@ var pa11yCall = function pa11yCall(theUrl) {
 
         case 4:
           _context3.next = 6;
-          return regeneratorRuntime.awrap(pa11y(theUrl).then(function (results) {
+          return regeneratorRuntime.awrap(pa11y(theUrl, {
+            chromeLaunchConfig: {
+              args: ["--no-sandbox"]
+            }
+          }).then(function (results) {
             return results;
           }));
 

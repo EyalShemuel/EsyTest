@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-const path = require('path')
+const path = require("path");
 const pa11y = require("pa11y");
 const bp = require("body-parser");
-const { getLinksSecondTime ,getPageLinks} = require("./getLinksSecondTime");
+const { getLinksSecondTime, getPageLinks } = require("./getLinksSecondTime");
 const extractDomain = require("@tech_userreport.com/extractdomain");
 const deleteArrDuplicates = require("delete-arr-duplicates");
 
@@ -12,17 +12,17 @@ app.use(bp.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, ".", "/client", "build")));
 
-app.get("/", (req, res) => { 
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./client", "build"));
 });
-// 
+//
 app.post("/getTestResults", async (req, res) => {
   try {
     const theUrl = req.body.url;
     if (!theUrl) {
       throw Error("did`t enter url");
     } else {
-      console.log('entered')
+      console.log("entered");
       const testResult = await pa11yCall(theUrl);
       let Results = changeResult(testResult);
 
@@ -81,9 +81,11 @@ const callGetAllSitLinks = async (theUrl) => {
 
 const pa11yCall = async (theUrl) => {
   try {
-    console.log("calling pa11y....")
+    console.log("calling pa11y....");
     if (theUrl === "") throw new Error("empty url");
-    return await pa11y(theUrl).then((results) => {
+    return await pa11y(theUrl, {
+      chromeLaunchConfig: { args: ["--no-sandbox"] },
+    }).then((results) => {
       return results;
     });
   } catch (error) {
