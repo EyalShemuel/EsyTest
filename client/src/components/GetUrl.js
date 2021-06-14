@@ -1,50 +1,25 @@
 import React from "react";
+import axios from "axios";
+import arrayUniq from "array-uniq";
 
-export function GetUrl({ setContainer, setErrorArry ,setStatus,Status}) {
-  // setStatus(false);
- 
+export function GetUrl({ setContainer, setErrorArry, setStatus, Status }) {
   const HandelSubmit = (event) => {
     event.preventDefault();
     setStatus(false);
     const requestOptions = {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: event.target.children.url.value }),
+      url: event.target.children.url.value,
     };
-    
-    fetch("/getTestResults", requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        const newDada = [];
-        const uniqueNewDada = [];
-        console.log(data)
-      /*   data.forEach((item) =>
-        { let minimalCode =   item.code.replaceAll("WCAG2AA Principl1 Guidlin", "")
-              minimalCode = minimalCode.replaceAll("WCAG2AA Principl2 Guidlin", "")
-              minimalCode = minimalCode.replaceAll("WCAG2AA Principl3 Guidlin", "")
-              minimalCode = minimalCode.replaceAll("WCAG2AA Principl4 Guidlin", "")
-             const splitCode = minimalCode.split(' ');
 
-       
-        newDada.push(splitCode[1])} 
-        );*/
-
-       
-
-        data.sort().forEach((c) => {
-          if (!uniqueNewDada.includes(c)) {
-            uniqueNewDada.push(c);
-          }
-        });
-       
-        setErrorArry(uniqueNewDada);
-        console.log(uniqueNewDada);
-        setContainer(data);
-        setStatus(true);
-      })
-      
+    axios.post("getTestResults", requestOptions).then((results) => {
+      const { data } = results;
+      const codeArray = data.map((errorLine) => errorLine.code);
+      const uniqueNewDada = arrayUniq(codeArray);
+      setErrorArry(uniqueNewDada.sort());
+      setContainer(data);
+      setStatus(true);
+    });
   };
-  
+
   return (
     <div
       style={{

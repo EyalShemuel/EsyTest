@@ -68,24 +68,23 @@ app.post("/getTestResults", function _callee(req, res) {
         case 9:
           testResult = _context.sent;
           Results = changeResult(testResult);
-          console.log(Results);
           res.send(Results);
 
-        case 13:
-          _context.next = 18;
+        case 12:
+          _context.next = 17;
           break;
 
-        case 15:
-          _context.prev = 15;
+        case 14:
+          _context.prev = 14;
           _context.t0 = _context["catch"](0);
           console.error(_context.t0);
 
-        case 18:
+        case 17:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 15]]);
+  }, null, null, [[0, 14]]);
 });
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client", "build"));
@@ -193,8 +192,7 @@ var changeResult = function changeResult(testResult) {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
       if (block.type === "error") {
-        var code = block.code.split(".")[3].replace('_', '.'); // console.log(code);
-
+        var code = block.code.split(".")[3].replace('_', '.').replace('_', '.');
         return {
           code: code,
           message: block.message,
@@ -205,27 +203,6 @@ var changeResult = function changeResult(testResult) {
         return block;
       }
     }));
-    /*  changedResult = testResult.map((block) =>
-      block
-        ? {
-            code: block.code.replaceAll(block.code[27], ""),
-            message: block.message,
-            context: block.context,
-            selector: block.selector,
-          }
-        : block
-    );
-    changedResult = testResult.map((block) =>
-      block
-        ? {
-            code: block.code.replaceAll("_", "."),
-            message: block.message,
-            context: block.context,
-            selector: block.selector,
-          }
-        : block
-    ); */
-
     return changedResult;
   } catch (error) {
     console.log(error);

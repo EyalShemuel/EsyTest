@@ -34,7 +34,6 @@ app.post("/getTestResults", async (req, res) => {
       console.log("entered");
       const testResult = await pa11yCall(theUrl);
       let Results = changeResult(testResult);
-      console.log(Results);
       res.send(Results);
     }
     // callGetAllSitLinks(theUrl);
@@ -112,8 +111,8 @@ const changeResult = (testResult) => {
     changedResult = [
       ...issues.map((block) => {
         if (block.type === "error") {
-          const code = block.code.split(".")[3].replace('_','.');
-          // console.log(code);
+          const code = block.code.split(".")[3].replace('_','.').replace('_','.');
+         
           return {
             code: code,
             message: block.message,
@@ -126,26 +125,7 @@ const changeResult = (testResult) => {
       }),
     ];
 
-    /*  changedResult = testResult.map((block) =>
-      block
-        ? {
-            code: block.code.replaceAll(block.code[27], ""),
-            message: block.message,
-            context: block.context,
-            selector: block.selector,
-          }
-        : block
-    );
-    changedResult = testResult.map((block) =>
-      block
-        ? {
-            code: block.code.replaceAll("_", "."),
-            message: block.message,
-            context: block.context,
-            selector: block.selector,
-          }
-        : block
-    ); */
+   
     return changedResult;
   } catch (error) {
     console.log(error);
