@@ -196,7 +196,7 @@ var changeResult = function changeResult(testResult) {
         var code = block.code.split(".")[3]; // console.log(code);
 
         return {
-          code: code.replace("_", "."),
+          code: code.replaceALL("_", "."),
           message: block.message,
           context: block.context,
           selector: block.selector

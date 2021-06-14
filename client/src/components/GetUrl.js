@@ -17,8 +17,8 @@ export function GetUrl({ setContainer, setErrorArry ,setStatus,Status}) {
       .then((data) => {
         const newDada = [];
         const uniqueNewDada = [];
-
-        data.forEach((item) =>
+        console.log(data)
+      /*   data.forEach((item) =>
         { let minimalCode =   item.code.replaceAll("WCAG2AA Principl1 Guidlin", "")
               minimalCode = minimalCode.replaceAll("WCAG2AA Principl2 Guidlin", "")
               minimalCode = minimalCode.replaceAll("WCAG2AA Principl3 Guidlin", "")
@@ -26,12 +26,12 @@ export function GetUrl({ setContainer, setErrorArry ,setStatus,Status}) {
              const splitCode = minimalCode.split(' ');
 
        
-        newDada.push(splitCode[1])}
-        );
+        newDada.push(splitCode[1])} 
+        );*/
 
        
 
-        newDada.sort().forEach((c) => {
+        data.sort().forEach((c) => {
           if (!uniqueNewDada.includes(c)) {
             uniqueNewDada.push(c);
           }
