@@ -97,7 +97,7 @@ const changeResult = (testResult) => {
   const {issues} = testResult;
   if (!issues) throw new Error("problem with test result");
   try {
-    const changedResult = [];
+    let changedResult = [];
     changedResult = [...issues.map((block) =>
       block.type === "error"
         ? {

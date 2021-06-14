@@ -8,8 +8,6 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
 var express = require("express");
 
 var app = express();
@@ -183,14 +181,14 @@ var changeResult = function changeResult(testResult) {
 
   try {
     var changedResult = [];
-    changedResult = (_readOnlyError("changedResult"), _toConsumableArray(issues.map(function (block) {
+    changedResult = _toConsumableArray(issues.map(function (block) {
       return block.type === "error" ? {
         code: block.code.split(".")[4],
         message: block.message,
         context: block.context,
         selector: block.selector
       } : block;
-    })));
+    }));
     /*  changedResult = testResult.map((block) =>
        block
          ? {
