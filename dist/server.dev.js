@@ -168,6 +168,8 @@ var pa11yCall = function pa11yCall(theUrl) {
 };
 
 var changeResult = function changeResult(testResult) {
+  console.log(testResult);
+
   try {
     testResult = testResult.issues.map(function (block) {
       return block.type === "error" ? {
