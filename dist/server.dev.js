@@ -68,23 +68,24 @@ app.post("/getTestResults", function _callee(req, res) {
         case 9:
           testResult = _context.sent;
           Results = changeResult(testResult);
+          console.log(testResult);
           res.send(Results);
 
-        case 12:
-          _context.next = 17;
+        case 13:
+          _context.next = 18;
           break;
 
-        case 14:
-          _context.prev = 14;
+        case 15:
+          _context.prev = 15;
           _context.t0 = _context["catch"](0);
           console.error(_context.t0);
 
-        case 17:
+        case 18:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 14]]);
+  }, null, null, [[0, 15]]);
 });
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client", "build"));
@@ -162,7 +163,7 @@ var pa11yCall = function pa11yCall(theUrl) {
           _context3.next = 6;
           return regeneratorRuntime.awrap(pa11y(theUrl, {
             chromeLaunchConfig: {
-              args: ["--no-sandbox", '--disable-setuid-sandbox']
+              args: ["--no-sandbox", "--disable-setuid-sandbox"]
             }
           }).then(function (results) {
             return results;
@@ -192,10 +193,10 @@ var changeResult = function changeResult(testResult) {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
       if (block.type === "error") {
-        var code = block.code.split(".")[3];
-        console.log(code);
+        var code = block.code.split(".")[3]; // console.log(code);
+
         return {
-          code: code,
+          code: code.replace("_", "."),
           message: block.message,
           context: block.context,
           selector: block.selector
@@ -205,25 +206,25 @@ var changeResult = function changeResult(testResult) {
       }
     }));
     /*  changedResult = testResult.map((block) =>
-       block
-         ? {
-             code: block.code.replaceAll(block.code[27], ""),
-             message: block.message,
-             context: block.context,
-             selector: block.selector,
-           }
-         : block
-     );
-     changedResult = testResult.map((block) =>
-       block
-         ? {
-             code: block.code.replaceAll("_", "."),
-             message: block.message,
-             context: block.context,
-             selector: block.selector,
-           }
-         : block
-     ); */
+      block
+        ? {
+            code: block.code.replaceAll(block.code[27], ""),
+            message: block.message,
+            context: block.context,
+            selector: block.selector,
+          }
+        : block
+    );
+    changedResult = testResult.map((block) =>
+      block
+        ? {
+            code: block.code.replaceAll("_", "."),
+            message: block.message,
+            context: block.context,
+            selector: block.selector,
+          }
+        : block
+    ); */
 
     return changedResult;
   } catch (error) {

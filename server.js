@@ -34,7 +34,7 @@ app.post("/getTestResults", async (req, res) => {
       console.log("entered");
       const testResult = await pa11yCall(theUrl);
       let Results = changeResult(testResult);
-
+      console.log(testResult);
       res.send(Results);
     }
     // callGetAllSitLinks(theUrl);
@@ -93,7 +93,9 @@ const pa11yCall = async (theUrl) => {
     console.log("calling pa11y....");
     if (theUrl === "") throw new Error("empty url");
     return await pa11y(theUrl, {
-      chromeLaunchConfig: { args: ["--no-sandbox",'--disable-setuid-sandbox'] },
+      chromeLaunchConfig: {
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      },
     }).then((results) => {
       return results;
     });
@@ -103,25 +105,28 @@ const pa11yCall = async (theUrl) => {
 };
 
 const changeResult = (testResult) => {
-  const {issues} = testResult;
+  const { issues } = testResult;
   if (!issues) throw new Error("problem with test result");
   try {
     let changedResult = [];
-    changedResult = [...issues.map((block) =>{
-      if(block.type === "error"){
-        const code = block.code.split(".")[3];
-        console.log(code);
-       return {
-          code:code,
-          message: block.message,
-          context: block.context,
-          selector: block.selector,
+    changedResult = [
+      ...issues.map((block) => {
+        if (block.type === "error") {
+          const code = block.code.split(".")[3];
+          // console.log(code);
+          return {
+            code: code.replace("_", "."),
+            message: block.message,
+            context: block.context,
+            selector: block.selector,
+          };
+        } else {
+          return block;
         }
-      }else{ return block}
-       
-    })]
-   
-   /*  changedResult = testResult.map((block) =>
+      }),
+    ];
+
+    /*  changedResult = testResult.map((block) =>
       block
         ? {
             code: block.code.replaceAll(block.code[27], ""),
