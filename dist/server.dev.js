@@ -68,7 +68,7 @@ app.post("/getTestResults", function _callee(req, res) {
         case 9:
           testResult = _context.sent;
           Results = changeResult(testResult);
-          console.log(testResult);
+          console.log(Results);
           res.send(Results);
 
         case 13:

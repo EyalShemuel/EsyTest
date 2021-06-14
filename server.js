@@ -34,7 +34,7 @@ app.post("/getTestResults", async (req, res) => {
       console.log("entered");
       const testResult = await pa11yCall(theUrl);
       let Results = changeResult(testResult);
-      console.log(testResult);
+      console.log(Results);
       res.send(Results);
     }
     // callGetAllSitLinks(theUrl);
