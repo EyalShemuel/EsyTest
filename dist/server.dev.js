@@ -8,6 +8,15 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+/* to operate on heruko:
+heroku buildpacks:clear
+heroku buildpacks:add --index 1 https://github.com/jontewks/puppeteer-heroku-buildpack
+heroku buildpacks:add --index 1 heroku/nodejs
+
+ return await pa11y(theUrl, {
+      chromeLaunchConfig: { args: ["--no-sandbox",'--disable-setuid-sandbox'] },
+    })
+*/
 var express = require("express");
 
 var app = express();
@@ -153,7 +162,7 @@ var pa11yCall = function pa11yCall(theUrl) {
           _context3.next = 6;
           return regeneratorRuntime.awrap(pa11y(theUrl, {
             chromeLaunchConfig: {
-              args: ["--no-sandbox"]
+              args: ["--no-sandbox", '--disable-setuid-sandbox']
             }
           }).then(function (results) {
             return results;
@@ -182,12 +191,18 @@ var changeResult = function changeResult(testResult) {
   try {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
-      return block.type === "error" ? {
-        code: $(block.code.split(".")[0]),
-        message: block.message,
-        context: block.context,
-        selector: block.selector
-      } : block;
+      if (block.type === "error") {
+        var code = block.code.split(".")[0];
+        console.log(block.code.split("."));
+        return {
+          code: code,
+          message: block.message,
+          context: block.context,
+          selector: block.selector
+        };
+      } else {
+        return block;
+      }
     }));
     /*  changedResult = testResult.map((block) =>
        block

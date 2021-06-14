@@ -1,3 +1,12 @@
+/* to operate on heruko:
+heroku buildpacks:clear
+heroku buildpacks:add --index 1 https://github.com/jontewks/puppeteer-heroku-buildpack
+heroku buildpacks:add --index 1 heroku/nodejs
+
+ return await pa11y(theUrl, {
+      chromeLaunchConfig: { args: ["--no-sandbox",'--disable-setuid-sandbox'] },
+    })
+*/
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -84,7 +93,7 @@ const pa11yCall = async (theUrl) => {
     console.log("calling pa11y....");
     if (theUrl === "") throw new Error("empty url");
     return await pa11y(theUrl, {
-      chromeLaunchConfig: { args: ["--no-sandbox"] },
+      chromeLaunchConfig: { args: ["--no-sandbox",'--disable-setuid-sandbox'] },
     }).then((results) => {
       return results;
     });
@@ -98,16 +107,19 @@ const changeResult = (testResult) => {
   if (!issues) throw new Error("problem with test result");
   try {
     let changedResult = [];
-    changedResult = [...issues.map((block) =>
-      block.type === "error"
-        ? {
-            code:$(block.code.split(".")[0]),
-            message: block.message,
-            context: block.context,
-            selector: block.selector,
-          }
-        : block
-    )]
+    changedResult = [...issues.map((block) =>{
+      if(block.type === "error"){
+        const code = block.code.split(".")[0];
+        console.log(block.code.split("."));
+       return {
+          code:code,
+          message: block.message,
+          context: block.context,
+          selector: block.selector,
+        }
+      }else{ return block}
+       
+    })]
    
    /*  changedResult = testResult.map((block) =>
       block
