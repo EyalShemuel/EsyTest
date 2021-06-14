@@ -193,7 +193,7 @@ var changeResult = function changeResult(testResult) {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
       if (block.type === "error") {
-        var code = block.code.split(".")[3].replaceAll('_', '.'); // console.log(code);
+        var code = block.code.split(".")[3].replace('_', '.'); // console.log(code);
 
         return {
           code: code,
