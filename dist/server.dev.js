@@ -169,6 +169,7 @@ var pa11yCall = function pa11yCall(theUrl) {
 
 var changeResult = function changeResult(testResult) {
   console.log(testResult);
+  if (testResult) throw new Error("problem with test result");
 
   try {
     testResult = testResult.issues.map(function (block) {

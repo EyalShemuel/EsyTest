@@ -95,6 +95,7 @@ const pa11yCall = async (theUrl) => {
 
 const changeResult = (testResult) => {
   console.log(testResult);
+  if (testResult) throw new Error("problem with test result");
   try {
     testResult = testResult.issues.map((block) =>
       block.type === "error"
