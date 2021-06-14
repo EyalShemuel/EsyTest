@@ -1,5 +1,13 @@
 "use strict";
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var express = require("express");
 
 var app = express();
@@ -168,18 +176,18 @@ var pa11yCall = function pa11yCall(theUrl) {
 };
 
 var changeResult = function changeResult(testResult) {
-  console.log(testResult.issues);
-  if (testResult) throw new Error("problem with test result");
+  if (!testResult.issues) throw new Error("problem with test result");
 
   try {
-    testResult.issues = testResult.issues.map(function (block) {
+    testResult = _toConsumableArray(testResult.issues.map(function (block) {
       return block.type === "error" ? {
         code: block.code.replaceAll(".", " "),
         message: block.message,
         context: block.context,
         selector: block.selector
       } : block;
-    });
+    }));
+    console.log(testResult);
     testResult = testResult.map(function (block) {
       return block ? {
         code: block.code.replaceAll(block.code[27], ""),
