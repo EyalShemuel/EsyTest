@@ -109,8 +109,8 @@ const changeResult = (testResult) => {
     let changedResult = [];
     changedResult = [...issues.map((block) =>{
       if(block.type === "error"){
-        const code = block.code.split(".")[0];
-        console.log(block.code.split("."));
+        const code = block.code.split(".")[3];
+        console.log(code);
        return {
           code:code,
           message: block.message,

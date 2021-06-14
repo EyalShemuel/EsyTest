@@ -192,8 +192,8 @@ var changeResult = function changeResult(testResult) {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
       if (block.type === "error") {
-        var code = block.code.split(".")[0];
-        console.log(block.code.split("."));
+        var code = block.code.split(".")[3];
+        console.log(code);
         return {
           code: code,
           message: block.message,
