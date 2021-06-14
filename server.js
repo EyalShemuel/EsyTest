@@ -94,21 +94,22 @@ const pa11yCall = async (theUrl) => {
 };
 
 const changeResult = (testResult) => {
-  
-  if (!testResult.issues) throw new Error("problem with test result");
+  const {issues} = testResult;
+  if (!issues) throw new Error("problem with test result");
   try {
-    testResult = [...testResult.issues.map((block) =>
+    const changedResult = [];
+    changedResult = [...issues.map((block) =>
       block.type === "error"
         ? {
-            code: block.code.replaceAll(".", " "),
+            code: block.code.split(".")[4],
             message: block.message,
             context: block.context,
             selector: block.selector,
           }
         : block
     )]
-    console.log(testResult);
-    testResult = testResult.map((block) =>
+   
+   /*  changedResult = testResult.map((block) =>
       block
         ? {
             code: block.code.replaceAll(block.code[27], ""),
@@ -118,7 +119,7 @@ const changeResult = (testResult) => {
           }
         : block
     );
-    testResult = testResult.map((block) =>
+    changedResult = testResult.map((block) =>
       block
         ? {
             code: block.code.replaceAll("_", "."),
@@ -127,8 +128,8 @@ const changeResult = (testResult) => {
             selector: block.selector,
           }
         : block
-    );
-    return testResult;
+    ); */
+    return changedResult;
   } catch (error) {
     console.log(error);
   }

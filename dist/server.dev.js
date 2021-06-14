@@ -8,6 +8,8 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+
 var express = require("express");
 
 var app = express();
@@ -176,35 +178,41 @@ var pa11yCall = function pa11yCall(theUrl) {
 };
 
 var changeResult = function changeResult(testResult) {
-  if (!testResult.issues) throw new Error("problem with test result");
+  var issues = testResult.issues;
+  if (!issues) throw new Error("problem with test result");
 
   try {
-    testResult = _toConsumableArray(testResult.issues.map(function (block) {
+    var changedResult = [];
+    changedResult = (_readOnlyError("changedResult"), _toConsumableArray(issues.map(function (block) {
       return block.type === "error" ? {
-        code: block.code.replaceAll(".", " "),
+        code: block.code.split(".")[4],
         message: block.message,
         context: block.context,
         selector: block.selector
       } : block;
-    }));
-    console.log(testResult);
-    testResult = testResult.map(function (block) {
-      return block ? {
-        code: block.code.replaceAll(block.code[27], ""),
-        message: block.message,
-        context: block.context,
-        selector: block.selector
-      } : block;
-    });
-    testResult = testResult.map(function (block) {
-      return block ? {
-        code: block.code.replaceAll("_", "."),
-        message: block.message,
-        context: block.context,
-        selector: block.selector
-      } : block;
-    });
-    return testResult;
+    })));
+    /*  changedResult = testResult.map((block) =>
+       block
+         ? {
+             code: block.code.replaceAll(block.code[27], ""),
+             message: block.message,
+             context: block.context,
+             selector: block.selector,
+           }
+         : block
+     );
+     changedResult = testResult.map((block) =>
+       block
+         ? {
+             code: block.code.replaceAll("_", "."),
+             message: block.message,
+             context: block.context,
+             selector: block.selector,
+           }
+         : block
+     ); */
+
+    return changedResult;
   } catch (error) {
     console.log(error);
   }
