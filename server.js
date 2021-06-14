@@ -112,10 +112,10 @@ const changeResult = (testResult) => {
     changedResult = [
       ...issues.map((block) => {
         if (block.type === "error") {
-          const code = block.code.split(".")[3];
+          const code = block.code.split(".")[3].replaceAll('_','.');
           // console.log(code);
           return {
-            code: code.replaceALL("_", "."),
+            code: code,
             message: block.message,
             context: block.context,
             selector: block.selector,

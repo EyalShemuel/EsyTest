@@ -193,10 +193,10 @@ var changeResult = function changeResult(testResult) {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
       if (block.type === "error") {
-        var code = block.code.split(".")[3]; // console.log(code);
+        var code = block.code.split(".")[3].replaceAll('_', '.'); // console.log(code);
 
         return {
-          code: code.replaceALL("_", "."),
+          code: code,
           message: block.message,
           context: block.context,
           selector: block.selector
