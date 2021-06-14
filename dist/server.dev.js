@@ -168,11 +168,11 @@ var pa11yCall = function pa11yCall(theUrl) {
 };
 
 var changeResult = function changeResult(testResult) {
-  console.log(testResult);
+  console.log(testResult.issues);
   if (testResult) throw new Error("problem with test result");
 
   try {
-    testResult = testResult.issues.map(function (block) {
+    testResult.issues = testResult.issues.map(function (block) {
       return block.type === "error" ? {
         code: block.code.replaceAll(".", " "),
         message: block.message,

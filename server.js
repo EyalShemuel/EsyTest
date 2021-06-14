@@ -94,10 +94,10 @@ const pa11yCall = async (theUrl) => {
 };
 
 const changeResult = (testResult) => {
-  console.log(testResult);
+  console.log(testResult.issues);
   if (testResult) throw new Error("problem with test result");
   try {
-    testResult = testResult.issues.map((block) =>
+    testResult.issues = testResult.issues.map((block) =>
       block.type === "error"
         ? {
             code: block.code.replaceAll(".", " "),
