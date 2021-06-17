@@ -35,6 +35,21 @@ var extractDomain = require("@tech_userreport.com/extractdomain");
 
 var deleteArrDuplicates = require("delete-arr-duplicates");
 
+var _require2 = require('heroku-keep-awake'),
+    wakeDyno = _require2.wakeDyno;
+
+var DYNO_URL = 'https://esytest.herokuapp.com/';
+var opts = {
+  interval: 29,
+  logging: false,
+  stopTimes: {
+    start: '00:00',
+    end: '06:00'
+  }
+};
+app.listen(PORT, function () {
+  wakeDyno(DYNO_URL, opts);
+});
 app.use(bp.json());
 app.use(bp.urlencoded({
   extended: true

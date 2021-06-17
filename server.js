@@ -15,6 +15,20 @@ const bp = require("body-parser");
 const { getLinksSecondTime, getPageLinks } = require("./getLinksSecondTime");
 const extractDomain = require("@tech_userreport.com/extractdomain");
 const deleteArrDuplicates = require("delete-arr-duplicates");
+const { wakeDyno } = require('heroku-keep-awake');
+
+
+const DYNO_URL = 'https://esytest.herokuapp.com/';
+const opts = {
+  interval: 29,
+  logging: false,
+  stopTimes: { start: '00:00', end: '06:00' }
+}
+app.listen(PORT, () => {
+  wakeDyno(DYNO_URL,opts); 
+
+ 
+})
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
