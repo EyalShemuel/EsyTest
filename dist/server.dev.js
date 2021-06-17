@@ -35,21 +35,18 @@ var extractDomain = require("@tech_userreport.com/extractdomain");
 
 var deleteArrDuplicates = require("delete-arr-duplicates");
 
-var _require2 = require('heroku-keep-awake'),
+var _require2 = require("heroku-keep-awake"),
     wakeDyno = _require2.wakeDyno;
 
-var DYNO_URL = 'https://esytest.herokuapp.com/';
+var DYNO_URL = "https://esytest.herokuapp.com/";
 var opts = {
   interval: 29,
   logging: false,
   stopTimes: {
-    start: '00:00',
-    end: '06:00'
+    start: "00:00",
+    end: "06:00"
   }
 };
-app.listen(PORT, function () {
-  wakeDyno(DYNO_URL, opts);
-});
 app.use(bp.json());
 app.use(bp.urlencoded({
   extended: true
@@ -207,7 +204,7 @@ var changeResult = function changeResult(testResult) {
     var changedResult = [];
     changedResult = _toConsumableArray(issues.map(function (block) {
       if (block.type === "error") {
-        var code = block.code.split(".")[3].replace('_', '.').replace('_', '.');
+        var code = block.code.split(".")[3].replace("_", ".").replace("_", ".");
         return {
           code: code,
           message: block.message,
@@ -264,9 +261,11 @@ var filteredLinkArrayFunction = function filteredLinkArrayFunction(filteredLinkA
 /*  */
 
 
-var PORT = process.env.PORT || 4000;
+var PORT = process.env.PORT || 4000; // app.listen(PORT, () => console.log(`Server Live On Port: ${PORT}`));
+
 app.listen(PORT, function () {
-  return console.log("Server Live On Port: ".concat(PORT));
+  wakeDyno(DYNO_URL, opts);
+  console.log("Server Live On Port: ".concat(PORT));
 }); // map example
 
 /* 

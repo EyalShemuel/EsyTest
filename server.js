@@ -15,20 +15,14 @@ const bp = require("body-parser");
 const { getLinksSecondTime, getPageLinks } = require("./getLinksSecondTime");
 const extractDomain = require("@tech_userreport.com/extractdomain");
 const deleteArrDuplicates = require("delete-arr-duplicates");
-const { wakeDyno } = require('heroku-keep-awake');
+const { wakeDyno } = require("heroku-keep-awake");
 
-
-const DYNO_URL = 'https://esytest.herokuapp.com/';
+const DYNO_URL = "https://esytest.herokuapp.com/";
 const opts = {
   interval: 29,
   logging: false,
-  stopTimes: { start: '00:00', end: '06:00' }
-}
-app.listen(PORT, () => {
-  wakeDyno(DYNO_URL,opts); 
-
- 
-})
+  stopTimes: { start: "00:00", end: "06:00" },
+};
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
@@ -125,8 +119,11 @@ const changeResult = (testResult) => {
     changedResult = [
       ...issues.map((block) => {
         if (block.type === "error") {
-          const code = block.code.split(".")[3].replace('_','.').replace('_','.');
-         
+          const code = block.code
+            .split(".")[3]
+            .replace("_", ".")
+            .replace("_", ".");
+
           return {
             code: code,
             message: block.message,
@@ -139,7 +136,6 @@ const changeResult = (testResult) => {
       }),
     ];
 
-   
     return changedResult;
   } catch (error) {
     console.log(error);
@@ -174,8 +170,12 @@ const filteredLinkArrayFunction = async (filteredLinkArray, baseDomain) => {
 /*  */
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server Live On Port: ${PORT}`));
+// app.listen(PORT, () => console.log(`Server Live On Port: ${PORT}`));
 
+app.listen(PORT, () => {
+  wakeDyno(DYNO_URL, opts);
+  console.log(`Server Live On Port: ${PORT}`)
+});
 // map example
 /* 
  tasks.map((task) =>
