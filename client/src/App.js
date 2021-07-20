@@ -16,7 +16,7 @@ import "./App.css";
 export default function App() {
   const [Container, setContainer] = useState([]);
   const [ErrorArry, setErrorArry] = useState([]);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
   const listedErrorItems = ErrorArry.map((item) => (<p  style={{ marginLeft:'3%'}}>{item}</p>));
   return (
     <Router>
@@ -25,7 +25,7 @@ export default function App() {
           <GetUrl
             Container={Container}
             setContainer={setContainer}           
-            setErrorArry={setErrorArry}
+            setErrorArry={setErrorArry}s
             status = {status}
             setStatus={setStatus}
             
@@ -35,8 +35,8 @@ export default function App() {
 {listedErrorItems}
 </div>
          
-{console.log(status)}
-{status===false? <div style={{width: "100vw", display: "flex", justifyContent: "center" }}> <img src={loading}  alt="logo" /> </div>:<table style={{margin:'auto' , border:'1px solid black' , width:'90%'}}>
+
+{status===false? <div style={{width: "100vw", display: "flex", justifyContent: "center" }}> <img src={loading}  alt="loading" /> </div>:<table style={{margin:'auto' , border:'1px solid black' , width:'70%'}}>
 <tr className="block">
       <th>Code</th>
       <th>message</th>
